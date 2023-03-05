@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Info from "./components/Info/Info";
 import Nav from "./components/Nav/Nav";
+import { useState } from "react";
 
 
 
@@ -9,24 +10,33 @@ import Nav from "./components/Nav/Nav";
 
 function App() {
 
+  // ! PAGE INFO.................................
+  const [select, setSelect] = useState(null);
+
+
+
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home/>
+      element: <Home setSelect={setSelect}/>
     },
     {
       path: "/nav",
-      element: <Nav/>
+      element: <Nav />
     },
     {
       path: "/info",
-      element: <Info/>
+      element: <Info select={select}/>
     },
   ])
+
+
+
+
   return (
     <div className="App">
 
-        <RouterProvider router={router} />
+      <RouterProvider router={router} />
 
     </div>
   );

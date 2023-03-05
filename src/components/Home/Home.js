@@ -5,15 +5,18 @@ import Card from "../Card/Card";
 
 
 
-export default function Home() {
+export default function Home({setSelect}) {
 
     let [data, setdata] = useState([]);
+
     useEffect(() => {
         fetch("https://restcountries.com/v3.1/all")
             .then((response) => response.json())
             .then((data) => setdata(data))
     }, []);
 
+
+    // ! FILTER.................................................
     const [filtre, setFiltre] = useState(data);
     const [searchValue, setSearchValue] = useState('')
 
@@ -25,6 +28,21 @@ export default function Home() {
         setFiltre(filtrePays);
     }, [data, searchValue]);
 
+    // ! ALPHABETIC ORDER.......................................
+    function compare(a, b) {
+        if (a.name.common < b.name.common) {
+            return -1;
+        }
+        if (a.name.common > b.name.common) {
+            return 1;
+        }
+        return 0;
+    }
+    data.sort(compare);
+
+
+
+
 
     return (
         <div>
@@ -35,17 +53,17 @@ export default function Home() {
                 <div className="flex items-center justify-between mb-20" >
 
                     <div className="bg-white p-5 w-fit flex items-center gap-5 pr-32 rounded-xl shadow-lg border border-gray-300 ">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <i className="fa-solid fa-magnifying-glass"></i>
                         <input className="text-xl p-1" type="text" placeholder="Search for a country" onChange={(e) => setSearchValue(e.target.value)} />
                     </div>
 
                     <div>
-                        <select id="countries" class="text-lg bg-white border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-7 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow-lg">
-                            <option selected>Choose a country</option>
-                            <option value="US">Europe</option>
-                            <option value="CA">Africa</option>
-                            <option value="FR">America</option>
-                            <option value="DE">Asia</option>
+                        <select id="countries" className="text-lg bg-white border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-7 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow-lg">
+                            <option>Choose a country</option>
+                            <option>Europe</option>
+                            <option>Africa</option>
+                            <option>America</option>
+                            <option>Asia</option>
                         </select>
                     </div>
                 </div>
@@ -53,7 +71,7 @@ export default function Home() {
                 <div className="flex justify-center gap-10 flex-wrap">
                     {filtre.map((element, index) => {
                         return (
-                            <div key={index}>
+                            <div onClick={() => setSelect(element)} key={index}>
                                 <Card img={element.flags.svg} pays={element.name.common} region={element.region} capital={element.capital} population={element.population} />
                             </div>
                         )
