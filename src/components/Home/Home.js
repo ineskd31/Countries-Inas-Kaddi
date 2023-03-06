@@ -5,7 +5,9 @@ import Card from "../Card/Card";
 
 
 
-export default function Home({setSelect}) {
+export default function Home({setSelect, dark, setDark}) {
+
+    
 
     let [data, setdata] = useState([]);
 
@@ -46,9 +48,9 @@ export default function Home({setSelect}) {
 
     return (
         <div>
-            <Nav />
+            <Nav dark={dark} setDark={setDark} />
 
-            <div className="bg-gray-100 h-full pl-40 pt-10 pr-40 ">
+            <div className={dark ? "bg-gray-800 h-full pl-40 pt-10 pr-40 " : "bg-gray-100 h-full pl-40 pt-10 pr-40 "}>
 
                 <div className="flex items-center justify-between mb-20" >
 
@@ -72,7 +74,7 @@ export default function Home({setSelect}) {
                     {filtre.map((element, index) => {
                         return (
                             <div onClick={() => setSelect(element)} key={index}>
-                                <Card img={element.flags.svg} pays={element.name.common} region={element.region} capital={element.capital} population={element.population} />
+                                <Card dark={dark} img={element.flags.svg} pays={element.name.common} region={element.region} capital={element.capital} population={element.population} />
                             </div>
                         )
                     })}

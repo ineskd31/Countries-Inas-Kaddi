@@ -3,16 +3,16 @@ import Nav from "../Nav/Nav";
 
 
 
-export default function Info({select}) {
+export default function Info({select, dark, setDark}) {
 
-    let tabTaal = []
-
+    
     let currencie;
-
     for (const valeur in select.currencies) {
         currencie = valeur
     }
 
+    // ! LANGUAGE..................................................
+    let tabTaal = []
     let recupTaal = () => {
         for (const proprio in select.languages) {
         return tabTaal.push(select.languages[proprio])
@@ -25,13 +25,13 @@ export default function Info({select}) {
 
     return (
         <div>
-            <Nav />
+            <Nav dark={dark} setDark={setDark}/>
 
-            <div className="bg-gray-100 h-screen pl-40 pt-10 pr-40">
+            <div className={dark ? "bg-gray-800 text-white h-screen pl-40 pt-10 pr-40" : "bg-gray-100 h-screen pl-40 pt-10 pr-40"}>
                 
                 <div className="mb-20">
                     <Link to={"/"}>
-                        <button className="bg-white p-3 pl-5 pr-5 rounded-xl shadow-lg">BACK</button>
+                        <button className={dark ? "bg-black text-white p-3 pl-5 pr-5 rounded-xl shadow-lg" : "bg-white p-3 pl-5 pr-5 rounded-xl shadow-lg"}>BACK</button>
                     </Link>
                 </div>
 
@@ -67,10 +67,10 @@ export default function Info({select}) {
                         <div className="flex items-center gap-5">
                             <h1 className="text-2xl text-bold">Border countries : </h1>
 
-                            <button className="bg-white rounded-lg p-2 shadow-lg">Pays1</button>
-                            <button className="bg-white rounded-lg p-2 shadow-lg">Pays2</button>
-                            <button className="bg-white rounded-lg p-2 shadow-lg">Pays3</button>
-                            <button className="bg-white rounded-lg p-2 shadow-lg">Pays4</button>
+                            <button className={dark ? "bg-black rounded-lg p-2 shadow-lg" :"bg-white rounded-lg p-2 shadow-lg"}>Pays1</button>
+                            <button className={dark ? "bg-black rounded-lg p-2 shadow-lg" :"bg-white rounded-lg p-2 shadow-lg"}>Pays2</button>
+                            <button className={dark ? "bg-black rounded-lg p-2 shadow-lg" :"bg-white rounded-lg p-2 shadow-lg"}>Pays3</button>
+                            <button className={dark ? "bg-black rounded-lg p-2 shadow-lg" :"bg-white rounded-lg p-2 shadow-lg"}>Pays4</button>
                         </div>
                     </div>
 
