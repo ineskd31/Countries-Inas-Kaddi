@@ -67,10 +67,8 @@ export default function Info({select, dark, setDark}) {
                         <div className="flex items-center gap-5">
                             <h1 className="text-2xl text-bold">Border countries : </h1>
 
-                            <button className={dark ? "bg-black rounded-lg p-2 shadow-lg" :"bg-white rounded-lg p-2 shadow-lg"}>Pays1</button>
-                            <button className={dark ? "bg-black rounded-lg p-2 shadow-lg" :"bg-white rounded-lg p-2 shadow-lg"}>Pays2</button>
-                            <button className={dark ? "bg-black rounded-lg p-2 shadow-lg" :"bg-white rounded-lg p-2 shadow-lg"}>Pays3</button>
-                            <button className={dark ? "bg-black rounded-lg p-2 shadow-lg" :"bg-white rounded-lg p-2 shadow-lg"}>Pays4</button>
+                            
+                            
                         </div>
                     </div>
 

@@ -2,12 +2,12 @@ import Nav from "../Nav/Nav";
 import { useEffect } from "react";
 import { useState } from "react";
 import Card from "../Card/Card";
+import "./Home.css"
 
 
+export default function Home({ setSelect, dark, setDark }) {
 
-export default function Home({setSelect, dark, setDark}) {
 
-    
 
     let [data, setdata] = useState([]);
 
@@ -18,17 +18,35 @@ export default function Home({setSelect, dark, setDark}) {
     }, []);
 
 
-    // ! FILTER.................................................
+    // ! FILTER PAYS.................................................
     const [filtre, setFiltre] = useState(data);
     const [searchValue, setSearchValue] = useState('')
 
     useEffect(() => {
 
-        const filtrePays = data.filter(pays => pays.name.common.toLowerCase().startsWith(searchValue.toLowerCase())
+        let filtrePays = data.filter(pays => pays.name.common.toLowerCase().startsWith(searchValue.toLowerCase())
         );
 
         setFiltre(filtrePays);
     }, [data, searchValue]);
+
+
+    // ! FILTER REGION...........................................
+
+    const [region, setRegion] = useState("All regions");
+
+    useEffect(() => {
+
+        if (region == "All regions") {
+            setFiltre(data)
+        }
+        else if(region != "All regions"){
+            const filtreRegion = data.filter(pays => pays.region.includes(region))
+            setFiltre(filtreRegion);
+        }
+
+    }, [region]);
+
 
     // ! ALPHABETIC ORDER.......................................
     function compare(a, b) {
@@ -59,14 +77,16 @@ export default function Home({setSelect, dark, setDark}) {
                         <input className="text-xl p-1" type="text" placeholder="Search for a country" onChange={(e) => setSearchValue(e.target.value)} />
                     </div>
 
-                    <div>
-                        <select id="countries" className="text-lg bg-white border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 block p-7 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow-lg">
-                            <option>Choose a country</option>
-                            <option>Europe</option>
-                            <option>Africa</option>
-                            <option>America</option>
-                            <option>Asia</option>
-                        </select>
+                    <div className='rightInput'>
+                        <p>{region}</p>
+                        <div className="dropdown-content">
+                            <p onClick={() => { setRegion("All regions")}}>All regions</p>
+                            <p onClick={() => { setRegion("Africa") }}>Africa</p>
+                            <p onClick={() => { setRegion("America") }}>America</p>
+                            <p onClick={() => { setRegion("Asia") }}>Asia</p>
+                            <p onClick={() => { setRegion("Europe") }}>Europa</p>
+                            <p onClick={() => { setRegion("Oceania") }}>Oceania</p>
+                        </div>
                     </div>
                 </div>
 
